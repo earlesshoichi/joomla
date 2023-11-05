@@ -98,7 +98,7 @@ class Joomla:
             soup = BeautifulSoup(r.text, 'html.parser')
             response = soup.find('div', {'class': self.warning})
             print(f'Current Word #{processed_words}: {password}')
-            if response = '<div class="alert alert-warning">Username and password do not match or you do not have an account yet.</div>'
+            if response = '<div class="alert alert-warning">Username and password do not match or you do not have an account yet.</div>':
                 print(f'FAILED password = {password})
 
 
